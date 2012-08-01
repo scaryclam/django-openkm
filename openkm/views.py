@@ -10,7 +10,7 @@ def get_document_by_uuid(request, uuid):
     Returns a document from OpenKM
     """
     # Get the file object and convert the string back to binary
-    file_obj, doc_meta = get_document_buffer_by_uuid(request, uuid)
+    file_obj, doc_meta = get_document_buffer_by_uuid(uuid)
     document = utils.java_byte_array_to_binary(file_obj)
     file_name = doc_meta.path.split("/")[-1]
     file_name = os.path.basename(doc_meta.path)
@@ -21,7 +21,7 @@ def get_document_by_uuid(request, uuid):
     response['Content-Disposition'] = 'attachment; filename=%s' % file_name
     return response
 
-def get_document_buffer_by_uuid(request, uuid):
+def get_document_buffer_by_uuid(uuid):
     """
     Returns a document StringIO buffer and document meta data from OpenKM
     """
